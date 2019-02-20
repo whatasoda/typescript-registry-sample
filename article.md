@@ -1,5 +1,8 @@
 # TypeScriptで型も一緒にregisterできるregistryを実装しよう。
 
+
+始めまして。[@whatasoda](https://twitter.com/whatasoda)です。わたそーだと読みます。
+
 ## 背景
 - reduxとかの実装をするときに毎回同じフォーマットの型を書き続けるのは嫌。
 - 型書かなくても読めば自明、でも書かないとTSに怒られるような型とかだと実際の実装をしているコードの邪魔になって嫌。
@@ -10,6 +13,7 @@
 https://github.com/whatasoda/typescript-registry-sample
 
 全体像
+
 ```ts
 interface RegistryRecord<TMap extends MapObject> {
   keyList: Array<Extract<keyof TMap, string>>;
@@ -57,10 +61,12 @@ export default createRegistry;
 
 全部解説するとしんどいので、重要なところだけ。
 ### `next`
+
 ```ts
 const next = <TMap extends MapObject = {}>() => {
 ```
 `next`についている`TMap`というGenericsが実際に型をregisterしていってる部分になります。この`next`は型及び値を登録するための`register`や登録後に実際に使えるものを得るための`publish`といった関数を含むオブジェクトを返します。少し後に説明する通りこの`next`は`register`を呼び出す度に呼び出されます。その度に新しい`register`や`publish`を返すのは良くないので、memo化します。
+
 ```ts
 let memo: object | null = null;
 const next = <TMap extends MapObject = {}>() => {
@@ -122,12 +128,14 @@ const publish = (): RR => {
 type RR = RegistryRecord<{ [K in keyof TMap]: TMap[K] }>;
 ```
 余談ですが、これ、`TMap`入れるだけで良くない？と思うかもしれませんが、エラーやらなんやらで下記の1行目のようになるのを防いで、2行目の表示にしてくれるので使っています。参考までに。
+
 ```
 Property 'Tippy' does not exist on type '{ Hoto: string; } & { Kafu: string; } & { Tedeza: string; } & { Uzimatsu: string; } & { Kirima: string; }'.
 Property 'Tippy' does not exist on type '{ Hoto: string; Kafu: string; Tedeza: string; Uzimatsu: string; Kirima: string; }'.
 ```
 
 特に解説はしませんが、実際にこれを使った物をおいておきます。repoにあるものと同じです。
+
 ```ts
 import createRegistry from './registry';
 
@@ -155,6 +163,7 @@ console.log(record.mapObject.Kirima);
 今回紹介したものでは`next()`をそのまま返していますが、次に使用して良いものだけを選んで返すことで、条件を満たした場合にのみ次のフェーズに進めるようなregistryを作ることが可能です。
 prefixやsuffixを登録してから値の登録をしたいときや、`action`の登録と`actionCreator`の登録を別のファイルでやりたいときなどに役立つと思います。
 長くなってきたので少しコードを載せる程度にします。詳しくはrepo内のコードを読んでみてください。
+
 ```ts
 const createRegistry = <TAllKey extends string = string>() => {
 
