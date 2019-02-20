@@ -18,10 +18,10 @@ const createRegistry = <TAllKey extends string = string>() => {
 
     type UsedKey = Extract<keyof TMap, string>;
     type UnusedKey = Exclude<TAllKey, UsedKey>;
-    const register = <TKey extends UnusedKey, TValue>(key: TKey, value: TValue) => {
+    const register = <TKey extends UnusedKey>(key: TKey, value: string) => {
       mapObj[key] = value;
 
-      return next<TMap & { [_ in TKey]: TValue }>();
+      return next<TMap & { [_ in TKey]: string }>();
     };
 
     type RR = RegistryRecord<{ [K in keyof TMap]: TMap[K] }>;

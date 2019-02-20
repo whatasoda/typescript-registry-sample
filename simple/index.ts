@@ -1,6 +1,6 @@
-import createCharactorRegistry from './registry';
+import createRegistry from './registry';
 
-const record = createCharactorRegistry<'Hoto' | 'Kafu' | 'Tedeza' | 'Uzimatsu' | 'Kirima'>()
+const record = createRegistry<'Hoto' | 'Kafu' | 'Tedeza' | 'Uzimatsu' | 'Kirima'>()
   .register('Hoto', 'Cocoa')
   // .register('Tippy', 'Golden Flowery Orange Peco') /* Argument of type '"Tippy"' is not assignable to parameter of type '"Kafu" | "Tedeza" | "Uzimatsu" | "Kirima"'. */
   .register('Kafu', 'Chino')
@@ -18,4 +18,3 @@ console.log(record.mapObject.Tedeza);
 console.log(record.mapObject.Uzimatsu);
 console.log(record.mapObject.Kirima);
 // console.log(record.mapObject.Tippy); /* Property 'Tippy' does not exist on type '{ Hoto: string; Kafu: string; Tedeza: string; Uzimatsu: string; Kirima: string; }'. */
-// console.log(record.mapObject.Tippy); // Property 'Tippy' does not exist on type '{ Hoto: string; } & { Kafu: string; } & { Tedeza: string; } & { Uzimatsu: string; } & { Kirima: string; }'.
