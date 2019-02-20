@@ -1,0 +1,29 @@
+{
+  "name": "typescript-registry-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:simple": "ts-node ./simple",
+    "test:withPhase": "ts-node ./withPhase",
+    "format": "prettier --write ./**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whatasoda/typescript-registry-sample.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whatasoda/typescript-registry-sample/issues"
+  },
+  "homepage": "https://github.com/whatasoda/typescript-registry-sample#readme",
+  "dependencies": {
+    "typescript": "^3.3.3"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.2"
+  }
+}
