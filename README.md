@@ -1,0 +1,1 @@
+# typescript-registry-sample
